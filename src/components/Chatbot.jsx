@@ -1,52 +1,41 @@
 import React, { useState, useEffect, useRef } from "react";
-import "./Chatbot.css"; // Import the CSS file
+import "./Chatbot.css";
 
 const Chatbot = () => {
   const [messages, setMessages] = useState([
-    { text: "Hi! I have a few questions for you. Please select answers from the dropdown.", sender: "bot" }
+    { text: "Hi! I have a few questions for you. Please provide your answers below.", sender: "bot" }
   ]);
   const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
-  const [dropdownInput, setDropdownInput] = useState("");
+  const [userInput, setUserInput] = useState("");
   const [answers, setAnswers] = useState([]);
   
   const chatAreaRef = useRef(null);
 
   // Array of questions to be asked
   const questions = [
-    { text: "What is your name?", options: ["John", "Jane", "Other"] },
-    { text: "What is your age?", options: ["Under 18", "18-25", "26-35", "36-45", "46+"] },
-    { text: "What is your favorite color?", options: ["Red", "Blue", "Green", "Yellow"] },
-    { text: "What is your occupation?", options: ["Student", "Employed", "Self-employed", "Unemployed"] },
-    { text: "Where do you live?", options: ["USA", "Canada", "UK", "Australia", "Other"] }
+    { text: "What is your name?" },
+    { text: "What is your age?" },
+    { text: "What is your favorite color?" },
+    { text: "What is your occupation?" },
+    { text: "Where do you live?" }
   ];
 
-  const handleDropdownChange = (event) => {
-    setDropdownInput(event.target.value);
+  const handleInputChange = (event) => {
+    setUserInput(event.target.value);
   };
 
   const handleSend = async () => {
-    if (!dropdownInput) return;
-    console.log(answers);
-    console.log(messages);
+    if (!userInput) return;
 
     // Add user input to the answers array and to the messages
-    setAnswers([...answers, dropdownInput]);
-    setMessages([...messages, { text: dropdownInput, sender: "user" }]);
+    setAnswers([...answers, userInput]);
+    setMessages([...messages, { text: userInput, sender: "user" }]);
 
-    // Check if the answer is "John" and display a special message
-    if (currentQuestionIndex === 0 && dropdownInput === "John") {
-      // Display a special message for "John"
-      setMessages((prev) => [
-        ...prev,
-        { text: `Welcome, ${dropdownInput}!`, sender: "bot" }
-      ]);
-    } else {
-      // Simulate "saving the answer" message (i.e., mimicking an API call response)
-      setMessages((prev) => [
-        ...prev,
-        { text: `Answer "${dropdownInput}" saved successfully!`, sender: "bot" }
-      ]);
-    }
+    // Simulate "saving the answer" message (i.e., mimicking an API call response)
+    setMessages((prev) => [
+      ...prev,
+      { text: `Answer "${userInput}" saved successfully!`, sender: "bot" }
+    ]);
 
     // Move to the next question or finish
     if (currentQuestionIndex < questions.length - 1) {
@@ -64,8 +53,8 @@ const Chatbot = () => {
       { text: questions[currentQuestionIndex + 1]?.text || "All questions answered!", sender: "bot" }
     ]);
 
-    // Reset dropdown input
-    setDropdownInput("");
+    // Reset user input
+    setUserInput("");
   };
 
   useEffect(() => {
@@ -85,23 +74,18 @@ const Chatbot = () => {
         ))}
       </div>
 
-      {/* Dropdown for answering the current question */}
+      {/* Text input for answering the current question */}
       {currentQuestionIndex < questions.length && (
         <div>
           <div className="question-text">{questions[currentQuestionIndex].text}</div>
-          <select
-            value={dropdownInput}
-            onChange={handleDropdownChange}
-            className="select-dropdown"
-          >
-            <option value="">Select an answer</option>
-            {questions[currentQuestionIndex].options.map((option, index) => (
-              <option key={index} value={option}>
-                {option}
-              </option>
-            ))}
-          </select>
-          <button onClick={handleSend} className="send-button" disabled={!dropdownInput}>
+          <input
+            type="text"
+            value={userInput}
+            onChange={handleInputChange}
+            className="text-input"
+            placeholder="Enter your answer"
+          />
+          <button onClick={handleSend} className="send-button" disabled={!userInput}>
             Send
           </button>
         </div>

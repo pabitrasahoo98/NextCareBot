@@ -64,70 +64,71 @@ const Home = () => {
       </nav>
     </header>
 
-      <main>
-        {/* Toggle Button to Show Chatbot */}
+    <main>
+      {userId && userName ? (
         <button className="toggle-chatbot-btn" onClick={handleToggle}>
           {showChatbot ? "Back to Home" : "Go to Chatbot"}
         </button>
+      ) : null}
 
-        {/* Display Home content or Chatbot based on the toggle */}
-        {showChatbot ? (
-          <Chatbot />
-        ) : (
-          <div>
-            <div className="hero">
-              <div className="hero-content">
-                <h1>Welcome to the Future Of Care</h1>
-                <p>Organize your health history by uploading and securely storing all your medical records in one place.</p>
-                <button className="get-started-btn">Get Started</button>
-              </div>
-              <div className="hero-image">
-                <img src={hero} alt="Nextcare" />
-              </div>
+      {/* Display Home content or Chatbot based on the toggle */}
+      {showChatbot ? (
+        <Chatbot />
+      ) : (
+        <div>
+          <div className="hero">
+            <div className="hero-content">
+              <h1>Welcome to the Future Of Care</h1>
+              <p>Organize your health history by uploading and securely storing all your medical records in one place.</p>
+              <button className="get-started-btn">Get Started</button>
             </div>
-
-            <div className="supporters">
-              <p>Supported by Department of Science & Technology (DST)</p>
-              <div className="supporter-logos">
-                <img src={ministry} alt="DST Logo" />
-                <img src={nidhi} alt="NIDHI PRAVAH Logo" />
-              </div>
+            <div className="hero-image">
+              <img src={hero} alt="Nextcare" />
             </div>
-
-            <section className="how-to-use">
-              <h2>How to Use</h2>
-              <div className="steps-container">
-                <div className="step">
-                  <img src={step1} alt="Upload prescription" />
-                  <p>Step 1: Upload your prescription.</p>
-                </div>
-                <div className="step">
-                  <img src={step2} alt="Process prescription" />
-                  <p>Step 2: We will work on it.</p>
-                </div>
-                <div className="step">
-                  <img src={step3} alt="Receive digital prescription" />
-                  <p>Step 3: Receive your digital prescription.</p>
-                </div>
-              </div>
-            </section>
-
-            <section className="comparison">
-              <h2>Handwritten vs. Digital Prescriptions</h2>
-              <div className="comparison-container">
-                <div className="comparison-item">
-                  <img src={hw} alt="Handwritten prescription" />
-                  <p>Handwritten prescriptions can be unclear and difficult to read, increasing the chances of errors.</p>
-                </div>
-                <div className="comparison-item">
-                  <img src={digi} alt="Digital prescription" />
-                  <p>Digital prescriptions are clear, accurate, and can be easily shared with pharmacies, reducing errors.</p>
-                </div>
-              </div>
-            </section>
           </div>
-        )}
-      </main>
+
+          <div className="supporters">
+            <p>Supported by Department of Science & Technology (DST)</p>
+            <div className="supporter-logos">
+              <img src={ministry} alt="DST Logo" />
+              <img src={nidhi} alt="NIDHI PRAVAH Logo" />
+            </div>
+          </div>
+
+          <section className="how-to-use">
+            <h2>How to Use</h2>
+            <div className="steps-container">
+              <div className="step">
+                <img src={step1} alt="Upload prescription" />
+                <p>Step 1: Upload your prescription.</p>
+              </div>
+              <div className="step">
+                <img src={step2} alt="Process prescription" />
+                <p>Step 2: We will work on it.</p>
+              </div>
+              <div className="step">
+                <img src={step3} alt="Receive digital prescription" />
+                <p>Step 3: Receive your digital prescription.</p>
+              </div>
+            </div>
+          </section>
+
+          <section className="comparison">
+            <h2>Handwritten vs. Digital Prescriptions</h2>
+            <div className="comparison-container">
+              <div className="comparison-item">
+                <img src={hw} alt="Handwritten prescription" />
+                <p>Handwritten prescriptions can be unclear and difficult to read, increasing the chances of errors.</p>
+              </div>
+              <div className="comparison-item">
+                <img src={digi} alt="Digital prescription" />
+                <p>Digital prescriptions are clear, accurate, and can be easily shared with pharmacies, reducing errors.</p>
+              </div>
+            </div>
+          </section>
+        </div>
+      )}
+    </main>
 
       <footer>
         <div className="footer-content">

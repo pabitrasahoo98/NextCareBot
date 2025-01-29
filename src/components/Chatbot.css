@@ -1,221 +1,214 @@
 /* General Styles */
 .chatbot-container {
-    background-color: #f9f9f9;
-    border-radius: 10px;
-    width: 100%;
-    max-width: 800px;  /* Increased max width for larger screens */
-    margin: 30px auto;
-    padding: 30px;
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    box-shadow: 0px 4px 20px rgba(0, 0, 0, 0.1);
-    text-align: center;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    height: 600px;  /* Increased overall height for more space */
-    box-sizing: border-box;
+  background-color: #f9f9f9;
+  border-radius: 10px;
+  width: 100%;
+  max-width: 800px;  /* Increased max width for larger screens */
+  margin: 30px auto;
+  padding: 30px;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  box-shadow: 0px 4px 20px rgba(0, 0, 0, 0.1);
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  height: 600px;  /* Increased overall height for more space */
+  box-sizing: border-box;
+}
+
+/* Title */
+h1 {
+  font-size: 28px;
+  font-weight: 600;
+  color: #333;
+  margin-bottom: 20px;
+}
+
+/* Chat Area */
+.chat-area {
+  border: 1px solid #e1e1e1;
+  border-radius: 10px;
+  padding: 20px;
+  height: 75%;  /* Increased chat area height */
+  overflow-y: auto;
+  background-color: #fff;
+  box-shadow: inset 0px 2px 10px rgba(0, 0, 0, 0.1);
+  margin-bottom: 20px;
+  position: relative;
+  flex-grow: 1;
+  word-wrap: break-word;
+}
+
+/* Message Style */
+.message {
+  margin: 10px 0;
+}
+
+.message.bot {
+  text-align: left;
+}
+
+.message.user {
+  text-align: right;
+}
+
+.message-text {
+  display: inline-block;
+  padding: 15px 25px;  /* Larger padding for better readability */
+  border-radius: 15px;
+  max-width: 85%;  /* Allow for wider messages */
+  word-wrap: break-word;
+}
+
+.message.bot .message-text {
+  background-color: #f1f1f1;
+  color: #333;
+  border: 1px solid #ccc;
+}
+
+.message.user .message-text {
+  background-color: #007bff;
+  color: white;
+  border: 1px solid #007bff;
+}
+
+/* Text Input for Answers */
+.text-input {
+  padding: 12px;
+  width: 100%;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  background-color: #fff;
+  color: #555;
+  font-size: 16px;
+  margin-bottom: 10px;
+  box-sizing: border-box;
+}
+
+/* Send Button */
+.send-button {
+  padding: 15px 25px;
+  background-color: #007bff;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 18px;
+  width: 100%;
+  box-sizing: border-box;
+  transition: background-color 0.3s ease;
+}
+
+.send-button:hover {
+  background-color: #0056b3;
+}
+
+.send-button:disabled {
+  background-color: #ccc;
+  cursor: not-allowed;
+}
+
+/* Question Text */
+.question-text {
+  font-size: 18px;
+  font-weight: bold;
+  margin-bottom: 15px;
+}
+
+/* Media Queries for Mobile Responsiveness */
+
+/* For small screens (mobile devices) */
+@media screen and (max-width: 600px) {
+  .chatbot-container {
+    padding: 15px;
+    margin: 10px;
+    max-width: 100%;  /* Full width on mobile */
   }
-  
-  /* Title */
-  h1 {
-    font-size: 28px;
-    font-weight: 600;
-    color: #333;
-    margin-bottom: 20px;
-  }
-  
-  /* Chat Area */
+
   .chat-area {
-    border: 1px solid #e1e1e1;
-    border-radius: 10px;
-    padding: 20px;
-    height: 75%;  /* Increased chat area height */
-    overflow-y: auto;
-    background-color: #fff;
-    box-shadow: inset 0px 2px 10px rgba(0, 0, 0, 0.1);
-    margin-bottom: 20px;
-    position: relative;
-    flex-grow: 1;
-    word-wrap: break-word;
-  }
-  
-  /* Message Style */
-  .message {
-    margin: 10px 0;
-  }
-  
-  .message.bot {
-    text-align: left;
-  }
-  
-  .message.user {
-    text-align: right;
-  }
-  
-  .message-text {
-    display: inline-block;
-    padding: 15px 25px;  /* Larger padding for better readability */
-    border-radius: 15px;
-    max-width: 85%;  /* Allow for wider messages */
-    word-wrap: break-word;
-  }
-  
-  .message.bot .message-text {
-    background-color: #f1f1f1;
-    color: #333;
-    border: 1px solid #ccc;
-  }
-  
-  .message.user .message-text {
-    background-color: #007bff;
-    color: white;
-    border: 1px solid #007bff;
-  }
-  
-  /* Dropdown and Send Button */
-  .select-dropdown {
-    padding: 12px;
-    width: 100%;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    background-color: #fff;
-    color: #555;
-    font-size: 16px;
-    margin-bottom: 10px;
-    box-sizing: border-box;
-  }
-  
-  .select-dropdown option {
+    height: 50%;  /* Smaller chat area on mobile */
     padding: 10px;
   }
-  
-  .send-button {
-    padding: 15px 25px;
-    background-color: #007bff;
-    color: white;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    font-size: 18px;
-    width: 100%;
-    box-sizing: border-box;
-    transition: background-color 0.3s ease;
+
+  h1 {
+    font-size: 20px;  /* Slightly smaller title for mobile */
   }
-  
-  .send-button:hover {
-    background-color: #0056b3;
+
+  .message-text {
+    font-size: 14px;  /* Smaller font size for messages */
+    max-width: 90%;  /* Allow the message to take up more width */
   }
-  
-  .send-button:disabled {
-    background-color: #ccc;
-    cursor: not-allowed;
+
+  .text-input, .send-button {
+    font-size: 14px;  /* Smaller font size for input and button */
   }
-  
+
   .question-text {
-    font-size: 18px;
-    font-weight: bold;
-    margin-bottom: 15px;
+    font-size: 14px;  /* Smaller font size for question text */
   }
-  
-  /* Media Queries for Mobile Responsiveness */
-  
-  /* For small screens (mobile devices) */
-  @media screen and (max-width: 600px) {
-    .chatbot-container {
-      padding: 15px;
-      margin: 10px;
-      max-width: 100%;  /* Full width on mobile */
-    }
-  
-    .chat-area {
-      height: 50%;  /* Smaller chat area on mobile */
-      padding: 10px;
-    }
-  
-    h1 {
-      font-size: 20px;  /* Slightly smaller title for mobile */
-    }
-  
-    .message-text {
-      font-size: 14px;  /* Smaller font size for messages */
-      max-width: 90%;  /* Allow the message to take up more width */
-    }
-  
-    .select-dropdown, .send-button {
-      font-size: 14px;  /* Smaller font size for dropdown and button */
-    }
-  
-    .question-text {
-      font-size: 14px;  /* Smaller font size for question text */
-    }
-  
-    .select-dropdown {
-      margin-bottom: 15px;
-    }
-  
-    .send-button {
-      font-size: 14px;  /* Smaller button font size */
-    }
-  
-    /* Adjust margins and padding to fit mobile better */
-    .message-text {
-      padding: 10px;
-    }
+
+  .send-button {
+    font-size: 14px;  /* Smaller button font size */
   }
-  
-  /* For tablets and medium-sized screens */
-  @media screen and (min-width: 601px) and (max-width: 1024px) {
-    .chatbot-container {
-      max-width: 90%;  /* Allow for some margins on medium screens */
-    }
-  
-    .chat-area {
-      height: 65%;
-    }
-  
-    h1 {
-      font-size: 22px;
-    }
-  
-    .message-text {
-      font-size: 16px;
-    }
-  
-    .select-dropdown, .send-button {
-      font-size: 15px;
-    }
-  
-    .question-text {
-      font-size: 15px;
-    }
+
+  /* Adjust margins and padding to fit mobile better */
+  .message-text {
+    padding: 10px;
   }
-  
-  /* For larger screens (desktops) */
-  @media screen and (min-width: 1025px) {
-    .chatbot-container {
-      max-width: 800px;  /* Increased max width for large screens */
-      padding: 40px;  /* More padding for better spacing */
-      margin: 30px auto;
-    }
-  
-    .chat-area {
-      height: 75%;  /* Larger chat area on larger screens */
-    }
-  
-    h1 {
-      font-size: 32px;  /* Larger title for bigger screens */
-    }
-  
-    .message-text {
-      font-size: 20px;  /* Larger message text */
-    }
-  
-    .select-dropdown, .send-button {
-      font-size: 18px;  /* Larger dropdown and button font sizes */
-    }
-  
-    .question-text {
-      font-size: 18px;  /* Larger question text */
-    }
+}
+
+/* For tablets and medium-sized screens */
+@media screen and (min-width: 601px) and (max-width: 1024px) {
+  .chatbot-container {
+    max-width: 90%;  /* Allow for some margins on medium screens */
   }
-  
+
+  .chat-area {
+    height: 65%;
+  }
+
+  h1 {
+    font-size: 22px;
+  }
+
+  .message-text {
+    font-size: 16px;
+  }
+
+  .text-input, .send-button {
+    font-size: 15px;
+  }
+
+  .question-text {
+    font-size: 15px;
+  }
+}
+
+/* For larger screens (desktops) */
+@media screen and (min-width: 1025px) {
+  .chatbot-container {
+    max-width: 800px;  /* Increased max width for large screens */
+    padding: 40px;  /* More padding for better spacing */
+    margin: 30px auto;
+  }
+
+  .chat-area {
+    height: 75%;  /* Larger chat area on larger screens */
+  }
+
+  h1 {
+    font-size: 32px;  /* Larger title for bigger screens */
+  }
+
+  .message-text {
+    font-size: 20px;  /* Larger message text */
+  }
+
+  .text-input, .send-button {
+    font-size: 18px;  /* Larger input and button font sizes */
+  }
+
+  .question-text {
+    font-size: 18px;  /* Larger question text */
+  }
+}
