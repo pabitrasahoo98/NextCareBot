@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import './Signup.css';
+import axios from 'axios'; // Import axios
 
 const Signup = () => {
   const navigate = useNavigate();
@@ -11,46 +12,70 @@ const Signup = () => {
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
   const [errorMessage, setErrorMessage] = useState('');
+  const [loading, setLoading] = useState(false); // Loading state to disable button
 
   // Validation function
   const validateForm = () => {
-    // Name validation (non-empty and min 3 characters)
     if (name.trim().length < 3) {
       setErrorMessage('Name should be at least 3 characters long.');
       return false;
     }
 
-    // Mobile number validation (exactly 10 digits)
     const mobilePattern = /^[0-9]{10}$/;
     if (!mobilePattern.test(mobile)) {
       setErrorMessage('Please enter a valid 10-digit mobile number.');
       return false;
     }
 
-    // Password validation (minimum 8 characters, at least one digit)
     const passwordPattern = /^(?=.*\d).{8,}$/;
     if (!passwordPattern.test(password)) {
       setErrorMessage('Password must be at least 8 characters long and contain at least one digit.');
       return false;
     }
 
-    // Confirm Password validation
     if (password !== confirmPassword) {
       setErrorMessage('Passwords do not match.');
       return false;
     }
 
-    // Clear error message if validation passes
     setErrorMessage('');
     return true;
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-
     if (validateForm()) {
-      // If form is valid, navigate to login page
-      navigate('/login');
+      setLoading(true); // Set loading to true
+
+      const userData = {
+        name,
+        dob,
+        gender,
+        mobile,
+        password,
+      };
+
+      try {
+        const response = await axios.post('http://127.0.0.1:8080/users', userData);
+
+        if (response.status === 200) {
+          setLoading(false); // Set loading to false
+          setErrorMessage('');
+          alert('Sign-up successful!');
+          navigate('/'); // Redirect user to the home page or login page
+          // Optional: Clear form data after successful signup
+          setName('');
+          setDob('');
+          setGender('');
+          setMobile('');
+          setPassword('');
+          setConfirmPassword('');
+        }
+      } catch (error) {
+        setLoading(false); // Set loading to false
+        console.error('There was an error submitting the form:', error);
+        setErrorMessage('An error occurred. Please try again later.');
+      }
     }
   };
 
@@ -58,10 +83,9 @@ const Signup = () => {
     navigate('/login');
   };
 
-  // Optional function to format mobile input (auto-formatting with dashes)
   const handleMobileChange = (e) => {
-    const formattedMobile = e.target.value.replace(/[^\d]/g, ''); // Remove non-digit characters
-    setMobile(formattedMobile.slice(0, 10)); // Limit input to 10 digits
+    const formattedMobile = e.target.value.replace(/[^\d]/g, '');
+    setMobile(formattedMobile.slice(0, 10)); // Limit to 10 digits
   };
 
   return (
@@ -109,7 +133,7 @@ const Signup = () => {
             id="mobile"
             value={mobile}
             onChange={handleMobileChange}
-            maxLength={10} // Optional, just in case the user tries to paste more than 10 digits
+            maxLength={10}
             required
           />
         </div>
@@ -136,7 +160,9 @@ const Signup = () => {
 
         {errorMessage && <p className="error-message">{errorMessage}</p>}
 
-        <button type="submit">Sign Up</button>
+        <button type="submit" disabled={loading}>
+          {loading ? 'Signing Up...' : 'Sign Up'}
+        </button>
       </form>
       <p>Already have an account? <a onClick={handleLogin}>Log In</a></p>
     </div>
