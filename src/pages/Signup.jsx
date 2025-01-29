@@ -61,7 +61,6 @@ const Signup = () => {
         if (response.status === 201) {
           setLoading(false); 
           setErrorMessage('');
-          console.log(response.data)
           const { user_id, user_name } = response.data; 
 
           // Store id and name in localStorage
