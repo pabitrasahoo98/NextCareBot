@@ -19,9 +19,18 @@ import cc from "../public/credit-card.png";
 const Home = () => {
   const [showChatbot, setShowChatbot] = useState(false);
   const navigate = useNavigate();
+  const userId = localStorage.getItem('userId');
+  const userName = localStorage.getItem('userName');
 
   const handleLogin = () => {
     navigate("/login");
+  };
+
+  const handleLogout = () => {
+    // Remove user data from localStorage and redirect to login or home page
+    localStorage.removeItem('userId');
+    localStorage.removeItem('userName');
+    window.location.reload(); // You can also use `navigate` if using React Router
   };
 
   const handleToggle = () => {
@@ -30,23 +39,30 @@ const Home = () => {
 
   return (
     <div>
-      <header>
-        <nav>
-          <div className="logo">
-            <span className="logo-text">NC</span>
-            <span className="beta">Beta</span>
+          <header>
+      <nav>
+        <div className="logo">
+          <span className="logo-text">NC</span>
+          <span className="beta">Beta</span>
+        </div>
+        <ul className="nav-links">
+          <li><a href="#">Home</a></li>
+          <li><a href="#">About</a></li>
+          <li><a href="#">FAQ</a></li>
+          <li><a href="#">ABDM</a></li>
+          <li><a href="#">Health Feed</a></li>
+          <li><a href="#">Meds&Lab</a></li>
+        </ul>
+        {userId && userName ? (
+          <div className="user-info">
+            <span>Welcome, {userName}</span>
+            <button className="logout-btn" onClick={handleLogout}>Logout</button>
           </div>
-          <ul className="nav-links">
-            <li><a href="#">Home</a></li>
-            <li><a href="#">About</a></li>
-            <li><a href="#">FAQ</a></li>
-            <li><a href="#">ABDM</a></li>
-            <li><a href="#">Health Feed</a></li>
-            <li><a href="#">Meds&Lab</a></li>
-          </ul>
+        ) : (
           <button className="login-btn" onClick={handleLogin}>Login</button>
-        </nav>
-      </header>
+        )}
+      </nav>
+    </header>
 
       <main>
         {/* Toggle Button to Show Chatbot */}
