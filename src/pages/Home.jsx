@@ -17,7 +17,7 @@ import verified from "../public/verified.png";
 import cc from "../public/credit-card.png";
 
 const Home = () => {
-  const [showChatbot, setShowChatbot] = useState(false); // State to toggle between home and chatbot
+  const [showChatbot, setShowChatbot] = useState(false);
   const navigate = useNavigate();
 
   const handleLogin = () => {
@@ -25,7 +25,7 @@ const Home = () => {
   };
 
   const handleToggle = () => {
-    setShowChatbot(!showChatbot); // Toggle between showing home and chatbot
+    setShowChatbot(!showChatbot);
   };
 
   return (

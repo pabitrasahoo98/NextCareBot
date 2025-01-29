@@ -131,6 +131,32 @@ nav {
     max-width: 500px;
 }
 
+/* Chatbot Toggle Button */
+.toggle-chatbot-btn {
+    position: fixed;
+    bottom: 2rem;
+    right: 2rem;
+    width: 4rem; /* Width of the circle */
+    height: 4rem; /* Height of the circle */
+    background-color: #0088cc; /* Button color */
+    color: white; /* Text color */
+    border: none;
+    border-radius: 50%; /* This makes the button circular */
+    font-size: 1rem;
+    font-weight: bold;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.toggle-chatbot-btn:hover {
+    background-color: #006699; /* Button hover color */
+}
+
+
 /* Supporters Section */
 .supporters {
     background-color: #f8f9fa;
