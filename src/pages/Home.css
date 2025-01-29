@@ -1,0 +1,405 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: sans-serif;
+}
+
+body {
+    background-color: #ffffff;
+    overflow-x: hidden;
+}
+
+/* Header and Navigation */
+header {
+    padding: 1rem;
+    background-color: white;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    position: sticky;
+    top: 0;
+    z-index: 999;
+    opacity: 0.8;
+}
+
+nav {
+    max-width: 80vw;
+    margin: 0 auto;
+    display: flex;
+    justify-content:space-around;
+    align-items: center;
+    gap:2rem;
+}
+
+.logo {
+    display: flex;
+    align-items: baseline;
+}
+
+.logo-text {
+    font-size: 2.2rem;
+    font-weight: bold;
+    color: #0088cc;
+}
+
+.beta {
+    font-size: 0.8rem;
+    color: #666;
+    margin-left: 4px;
+}
+
+.nav-links {
+    display: flex;
+    list-style: none;
+    gap: 1rem;
+}
+
+.nav-links a {
+    text-decoration: none;
+    color:black;
+    font-weight: 500;
+}
+
+.nav-links a.active {
+    color: #0088cc;
+}
+
+.login-btn {
+    background-color: white;
+    border: 2px solid #013d5b;
+    width:15rem;
+    color: #004668;
+    padding: 0.5rem 1.5rem;
+    border-radius: 15px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+/* Hero Section */
+.hero {
+    max-width: 100vw;
+    margin-left: 6rem;
+    padding: 2rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    gap: 4rem;
+}
+
+.hero-content {
+    flex: 1;
+}
+
+.hero h1 {
+    font-size:2.2rem;
+    color: #1a1a1a;
+    margin-bottom: 1.5rem;
+    line-height: 1.2;
+}
+
+.hero p {
+    font-size: 1rem;
+    color: #666;
+    margin-bottom: 2rem;
+    line-height: 1.6;
+}
+
+.get-started-btn {
+    background-color: #004668;
+    color: white;
+    border: none;
+    padding: 0.8rem 2rem;
+    border-radius: 4px;
+    font-size: 1.1rem;
+    font-weight: 500;
+    cursor: pointer;
+    border-radius: 15px;
+}
+
+.get-started-btn:hover {
+    background-color: #006699;
+}
+
+.hero-image {
+    flex: 1;
+}
+
+.hero-image img {
+    width: 28vmax;
+    height: 28vmax;
+    border-radius: 10%;
+    max-width: 500px;
+}
+
+/* Supporters Section */
+.supporters {
+    background-color: #f8f9fa;
+    padding: 2rem 1rem;
+    text-align: center;
+    margin-top: 4rem;
+}
+
+.supporters p {
+    color: #666;
+    margin-bottom: 1.5rem;
+    font-size: clamp(0.9rem, 2vw, 1rem);
+}
+
+.supporter-logos {
+    display: flex;
+    justify-content: center;
+    gap: 2rem;
+    align-items: center;
+    flex-wrap: wrap;
+}
+
+.supporter-logos img {
+    height: clamp(40px, 8vw, 60px);
+    width: auto;
+}
+
+/* How to Use Section */
+.how-to-use {
+    max-width: 1200px;
+    margin: 4rem auto;
+    padding: 0 1rem;
+    text-align: center;
+}
+
+.how-to-use h2 {
+    font-size: 2.5rem;
+    color: #1a1a1a;
+    margin-bottom: 2rem;
+}
+
+.steps-container {
+    display: flex;
+    justify-content: space-around;
+    gap: 2rem;
+    padding: 1rem;
+}
+
+.step {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.step img {
+    width: 18vmax;
+    height:18vmax;
+    object-fit: cover;
+    border-radius: 10%;
+    margin-bottom: 1.5rem;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.step p {
+    font-size: clamp(0.9rem, 2vw, 1.2rem);
+    color: #666;
+    line-height: 1.4;
+}
+
+/* Comparison Section */
+.comparison {
+    max-width: 1200px;
+    margin: 4rem auto;
+    padding: 2rem;
+    text-align: center;
+    background-color:  #f8f9fa;
+    
+}
+
+.comparison h2 {
+    font-size: 2.5rem;
+    color: #1a1a1a;
+    margin-bottom: 3rem;
+}
+
+.comparison-container {
+    display: flex;
+    justify-content: space-around;
+    gap: 2rem;
+    padding: 1rem;
+}
+
+.comparison-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.comparison-item img {
+    width: 25vmax;
+    height: 25vmax;
+    border-radius: 2%;
+    margin-bottom: 1.5rem;
+}
+
+.comparison-item p {
+    font-size: 1.5;
+    color: #666;
+    line-height: 1.6;
+    max-width: 500px;
+}
+
+/* Footer Styles */
+footer {
+    padding-top: 4rem;
+    margin-top: 4rem;
+}
+
+.footer-content {
+    max-width: 100vw;
+    margin: 0 auto;
+    padding: 0 1rem;
+    display: flex;
+    justify-content:space-around;
+    gap: 2rem;
+}
+.footer-links{
+    display: flex;
+    justify-content: space-around;
+    align-items:flex-start;
+    margin: 2rem 10rem;
+}
+
+.footer-section h3 {
+    color: #1a1a1a;
+    font-size: 1.2rem;
+    margin-bottom: 1.5rem;
+}
+
+.footer-section ul {
+    list-style: none;
+}
+
+.footer-section ul li {
+    margin-bottom: 0.8rem;
+}
+
+.footer-section ul li a {
+    color: #666;
+    text-decoration: none;
+    transition: color 0.3s ease;
+    font-size: 1rem;
+}
+
+.footer-section ul li a:hover {
+    color: #0088cc;
+}
+
+.company-info {
+    margin-right: 2rem;
+}
+
+.footer-logo {
+    display: flex;
+    align-items: baseline;
+    margin-bottom: 1rem;
+}
+
+.company-name {
+    color: #666;
+    margin-bottom: 1rem;
+    font-size: 0.8rem;
+}
+
+.contact-info p {
+    color: #666;
+    margin-bottom: 0.5rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size:0.8rem;
+}
+
+.social-links {
+    margin-top: 1.5rem;
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    flex-wrap: wrap;
+}
+
+.social-links span {
+    color: #666;
+    font-size: 1rem;
+}
+
+.social-links a {
+    color: #666;
+    text-decoration: none;
+    transition: color 0.3s ease;
+    font-size: 1.2rem;
+}
+
+.social-links a:hover {
+    color: #0088cc;
+}
+
+.trust-bar {
+    background-color: #000;
+    color: white;
+    padding: 1rem;
+    margin-top: 3rem;
+}
+
+.trust-items {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 1rem;
+    display: flex;
+    justify-content: center;
+    gap: clamp(1rem, 4vw, 4rem);
+    flex-wrap: wrap;
+}
+
+.trust-item {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 1rem;
+}
+
+.footer-bottom {
+    background-color: #f8f9fa;
+    padding: 0.5rem 0.5rem;
+    border-top: 1px solid #e9ecef;
+}
+
+.footer-bottom-content {
+    max-width: 100vw;
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 1rem;
+}
+
+.footer-bottom p {
+    color:#000;
+    font-size: 0.8rem;
+}
+
+.footer-links {
+    display: flex;
+    gap: 2rem;
+    flex-wrap: wrap;
+}
+
+.footer-links a {
+    color: #666;
+    text-decoration: none;
+    transition: color 0.3s ease;
+    font-size: 0.9rem;
+}
+
+.footer-links a:hover {
+    color: #0088cc;
+}
+
+
+
+
