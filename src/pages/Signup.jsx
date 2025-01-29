@@ -58,12 +58,17 @@ const Signup = () => {
       try {
         const response = await axios.post('http://127.0.0.1:8080/users', userData);
 
-        if (response.status === 200) {
-          setLoading(false); // Set loading to false
+        if (response.status === 201) {
+          setLoading(false); 
           setErrorMessage('');
+          console.log(response.data)
+          const { user_id, user_name } = response.data; 
+
+          // Store id and name in localStorage
+          localStorage.setItem('userId', user_id); 
+          localStorage.setItem('userName', user_name); 
           alert('Sign-up successful!');
-          navigate('/'); // Redirect user to the home page or login page
-          // Optional: Clear form data after successful signup
+          navigate('/');
           setName('');
           setDob('');
           setGender('');
@@ -71,11 +76,21 @@ const Signup = () => {
           setPassword('');
           setConfirmPassword('');
         }
+       
       } catch (error) {
         setLoading(false); // Set loading to false
-        console.error('There was an error submitting the form:', error);
-        setErrorMessage('An error occurred. Please try again later.');
-      }
+  
+        // Check if the error status is 400 (User already exists)
+        if (error.response && error.response.status === 400) {
+          setErrorMessage('A user with this mobile number already exists.');
+          alert('A user with this mobile number already exists.');
+          navigate("/login")
+        } else {
+          // Handle other errors (e.g., server issues)
+          console.error('There was an error submitting the form:', error);
+          setErrorMessage('An error occurred. Please try again later.');
+        }
+    }
     }
   };
 
