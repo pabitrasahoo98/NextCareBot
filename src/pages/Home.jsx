@@ -71,7 +71,6 @@ const Home = () => {
         </button>
       ) : null}
 
-      {/* Display Home content or Chatbot based on the toggle */}
       {showChatbot ? (
         <Chatbot />
       ) : (

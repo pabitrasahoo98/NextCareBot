@@ -1,30 +1,30 @@
 import React, { useState, useEffect, useRef } from "react";
-import axios from "axios";  // Import axios
+import axios from "axios";  
 import "./Chatbot.css";
 
-// Replace this with your actual API endpoint
-const API_URL = "https://yourapi.com/endpoint"; 
+// API endpoint to post messages
+const API_URL = "http://127.0.0.1:8080/MessageCreate";
 
-const Chatbot = ({ userId }) => {  // Assuming userId is passed as a prop
+const Chatbot = () => {
+  const userId = localStorage.getItem('userId');
   const [messages, setMessages] = useState([
     { text: "Hi! I am NextCare Bot. By answering a few questions, I can assist you regarding your health condition.", sender: "bot", is_bot: true }
   ]);
   const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
   const [userInput, setUserInput] = useState("");
-  const [isBotTyping, setIsBotTyping] = useState(false); // State for bot typing indicator
-
+  
   const chatAreaRef = useRef(null);
 
-  // Array of questions to be asked, each with predefined options
   const questions = [
     { text: "Are you experiencing a headache right now or recently?", options: ["Yes", "No"] },
-    { text: "How long has your headache lasted?", options: ["Less than 30 minutes", "30 minutes to 4 hours", "4 hours to 72 hours", "More than 72 hours"] },
-    { text: "When did your headache start?", options: ["Gradual onset", "Sudden onset"] },
-    { text: "Where is the pain located?", options: ["One side of the head (unilateral)", "Both sides of the head (bilateral)", "Back of the head and neck", "Forehead and behind the eyes", "All over the head"] },
-    { text: "What does your headache feel like?", options: ["Throbbing or pulsing", "Dull, aching pain", "Sharp or stabbing pain", "Pressure-like or tightening"] },
-    { text: "Do you have any of these symptoms with your headache?", options: ["Nausea or vomiting", "Sensitivity to light (photophobia)", "Sensitivity to sound (phonophobia)", "Aura or visual disturbances", "Neck stiffness", "Fever"] },
-    { text: "Do you have any of these conditions or recent events?", options: ["Recent head injury or trauma", "Hypertension (high blood pressure)", "Pregnancy or recent childbirth", "Cancer or immune suppression", "History of stroke or brain aneurysm", "Family history of migraines or neurological disorders"] },
-    { text: "Headache Frequency and Chronicity", options: ["Rarely (less than once a month)", "Occasionally (1-4 times a month)", "Frequently (more than 4 times a month)", "Daily or nearly daily"] }
+    { text: "How long has your headache lasted?", options: ["Less than 1 hour", "1-3 hours", "More than 3 hours"] },
+    { text: "When did your headache start?", options: ["Today", "Yesterday", "Earlier this week"] },
+    { text: "Where is the pain located?", options: ["Front of the head", "Side of the head", "Back of the head", "Whole head"] },
+    { text: "What does your headache feel like?", options: ["Sharp", "Dull", "Throbbing", "Pressure"] },
+    { text: "Do you have any of these symptoms with your headache?", options: ["Nausea", "Dizziness", "Vision changes", "None of the above"] },
+    { text: "Do you have any of these conditions or recent events?", options: ["High blood pressure", "Stress", "Cold/Flu", "None of the above"] },
+    { text: "Are you able to check your temperature and blood pressure?", options: ["Yes", "No"] },
+    { text: "Headache Frequency and Chronicity", options: ["Occasional", "Frequent", "Chronic"] }
   ];
 
   const handleRadioChange = (event) => {
@@ -34,66 +34,48 @@ const Chatbot = ({ userId }) => {  // Assuming userId is passed as a prop
   const handleSend = async () => {
     if (!userInput) return;
 
-    // Add user input to the messages array with is_bot flag as false
-    const userMessage = {
-      text: userInput,
-      sender: "user",
-      is_bot: false
-    };
+    // Add the bot's question first to the database
+    await postResponse(questions[currentQuestionIndex].text, "", true);  // Posting the bot's question (with is_bot: true)
 
-    setMessages([...messages, userMessage]);
+    // Add the user's response to the messages array
+    const userMessage = { text: userInput, sender: "user", is_bot: false };
+    setMessages(prevMessages => [...prevMessages, userMessage]);
 
-    // Simulate bot typing delay
-    setIsBotTyping(true);
+    // Post the user's response to the API (after bot's question)
+    await postResponse(questions[currentQuestionIndex].text, userInput, false);  // Posting the user's answer (with is_bot: false)
 
-    // Simulate bot's response delay
-    setTimeout(async () => {
-      setIsBotTyping(false);
-
-      // Move to the next question or finish
-      if (currentQuestionIndex < questions.length - 1) {
-        setCurrentQuestionIndex(currentQuestionIndex + 1);
-      } else {
-        setMessages((prev) => [
-          ...prev,
-          { text: "Thank you for answering all the questions!", sender: "bot", is_bot: true }
-        ]);
-      }
-
-      // Bot response to the next question
-      setMessages((prev) => [
-        ...prev,
-        { text: questions[currentQuestionIndex + 1]?.text || "All questions answered!", sender: "bot", is_bot: true }
+    // Move to the next question or finish
+    if (currentQuestionIndex < questions.length - 1) {
+      setCurrentQuestionIndex(currentQuestionIndex + 1);
+    } else {
+      setMessages(prevMessages => [
+        ...prevMessages,
+        { text: "Thank you for answering all the questions!", sender: "bot", is_bot: true }
       ]);
+    }
 
-      // Reset user input
-      setUserInput("");
-
-      // Send both question and user response to the server
-      await postResponse(questions[currentQuestionIndex].text, userInput);
-    }, 1000); // Simulate a 1-second delay
+    // Reset user input
+    setUserInput("");
   };
 
-  // Function to make the POST request using axios
-  const postResponse = async (question, response) => {
+  // Function to post responses (both bot and user messages)
+  const postResponse = async (question, response, isBot = false) => {
     try {
       const payload = {
-        user_id: userId,  // User ID to link the message to the user
-        message: response,  // User's selected answer
-        is_bot: false,  // This is a user message
+        user_id: userId,  // Ensure the correct userId is passed
+        message: isBot ? question : response,  // Send the question (if bot) or the response (if user)
+        is_bot: isBot,  // Whether the message is from the bot or user
       };
 
-      // Send the user response to the backend
+      // Send the POST request to the correct API endpoint
       const res = await axios.post(API_URL, payload, {
         headers: {
-          "Content-Type": "application/json",
-          // You can add other headers here (e.g., authorization token) if needed
+          'Content-Type': 'application/json', // Specify that you're sending JSON data
         }
       });
 
-      // Check the response status
       if (res.status === 200) {
-        console.log("Response saved successfully");
+        console.log(isBot ? "Question sent successfully to the API" : "User response sent successfully to the API");
       } else {
         console.error("Failed to save response");
       }
@@ -102,6 +84,7 @@ const Chatbot = ({ userId }) => {  // Assuming userId is passed as a prop
     }
   };
 
+  // Auto-scroll to latest message
   useEffect(() => {
     if (chatAreaRef.current) {
       chatAreaRef.current.scrollTop = chatAreaRef.current.scrollHeight;
@@ -111,25 +94,21 @@ const Chatbot = ({ userId }) => {  // Assuming userId is passed as a prop
   return (
     <div className="chatbot-container">
       <h1>Chatbot</h1>
+
       <div className="chat-area" ref={chatAreaRef}>
+        {/* Display all messages */}
         {messages.map((msg, index) => (
           <div key={index} className={`message ${msg.sender}`}>
             <span className="message-text">{msg.text}</span>
           </div>
         ))}
-
-        {/* Display "Bot is typing..." while waiting for bot response */}
-        {isBotTyping && (
-          <div className="message bot">
-            <span className="message-text">Bot is typing...</span>
-          </div>
-        )}
       </div>
 
-      {/* Radio buttons for answering the current question */}
-      {currentQuestionIndex < questions.length && !isBotTyping && (
-        <div>
+      {/* Display the current question and options for the user */}
+      {currentQuestionIndex < questions.length && (
+        <div className="question-container">
           <div className="question-text">{questions[currentQuestionIndex].text}</div>
+          
           <div className="options-container">
             {questions[currentQuestionIndex].options.map((option, index) => (
               <div key={index} className="radio-option">
@@ -145,6 +124,7 @@ const Chatbot = ({ userId }) => {  // Assuming userId is passed as a prop
               </div>
             ))}
           </div>
+
           <button
             onClick={handleSend}
             className="send-button"
