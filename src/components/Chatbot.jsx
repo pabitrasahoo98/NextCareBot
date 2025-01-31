@@ -1,11 +1,13 @@
 import React, { useState, useEffect, useRef } from "react";
 import axios from "axios";  
 import "./Chatbot.css";
+import { useNavigate } from "react-router-dom";
 
-// API endpoint to post messages
+
 const API_URL = "http://127.0.0.1:8080/MessageCreate";
 
 const Chatbot = () => {
+  const navigate=useNavigate();
   const userId = localStorage.getItem('userId');
   const [messages, setMessages] = useState([
     { text: "Hi! I am NextCare Bot. By answering a few questions, I can assist you regarding your health condition.", sender: "bot", is_bot: true }
@@ -29,6 +31,10 @@ const Chatbot = () => {
 
   const handleRadioChange = (event) => {
     setUserInput(event.target.value); // Set selected radio button value as user input
+  };
+
+  const handleViewResponses = () => {
+    navigate(`/responses/${userId}`);
   };
 
   const handleSend = async () => {
@@ -74,7 +80,7 @@ const Chatbot = () => {
         }
       });
 
-      if (res.status === 200) {
+      if (res.status === 201) {
         console.log(isBot ? "Question sent successfully to the API" : "User response sent successfully to the API");
       } else {
         console.error("Failed to save response");
@@ -133,6 +139,12 @@ const Chatbot = () => {
             Send
           </button>
         </div>
+        
+      )}
+      {currentQuestionIndex >= questions.length && (
+        <button onClick={handleViewResponses} className="view-responses-button">
+          View All Responses
+        </button>
       )}
     </div>
   );

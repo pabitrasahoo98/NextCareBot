@@ -24,7 +24,7 @@ const Login = () => {
     };
 
     try {
-      const response = await axios.post('http://localhost:8080/login', userData);  // Replace with your API endpoint
+      const response = await axios.post('http://localhost:8080/login', userData);  
       if (response.status === 200) {
         alert("Login successfull")
         const { user_id, user_name } = response.data; 
@@ -37,8 +37,9 @@ const Login = () => {
       }
     } catch (error) {
       if (error.response && error.response.status === 401) {
-        setErrorMessage('invalid Credentials');
-        alert('invalid Credentials');
+      
+        setErrorMessage(error.response.data.error);
+        alert(error.response.data.error);
       }else {
       console.error('There was an error logging in:', error);
       alert("Please try again ")
