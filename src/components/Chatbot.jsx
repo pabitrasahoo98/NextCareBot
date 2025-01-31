@@ -41,24 +41,24 @@ const Chatbot = () => {
     if (!userInput) return;
 
     if (currentQuestionIndex === 0 && userInput === "No") {
-      // Optionally, you can clear the previous messages here or reset the state.
-      window.location.reload();  // Reload the page
-      return;  // Exit early to prevent the rest of the function from executing
+      
+      window.location.reload();  
+      return;  
     }
-     // Add the bot's question to the messages array
+     
     const botMessage = { text: botQuestion, sender: "bot", is_bot: true };
     setMessages(prevMessages => [...prevMessages, botMessage]);
-    // Add the bot's question first to the database
+    
     await postResponse(questions[currentQuestionIndex].text, "", true);  
 
-    // Add the user's response to the messages array
+    
     const userMessage = { text: userInput, sender: "user", is_bot: false };
     setMessages(prevMessages => [...prevMessages, userMessage]);
 
-    // Post the user's response to the API (after bot's question)
+    
     await postResponse(questions[currentQuestionIndex].text, userInput, false);  
 
-    // Move to the next question or finish
+    
     if (currentQuestionIndex < questions.length - 1) {
       setCurrentQuestionIndex(currentQuestionIndex + 1);
     } else {
@@ -68,23 +68,23 @@ const Chatbot = () => {
       ]);
     }
 
-    // Reset user input
+    
     setUserInput("");
   };
 
-  // Function to post responses (both bot and user messages)
+  
   const postResponse = async (question, response, isBot = false) => {
     try {
       const payload = {
-        user_id: userId,  // Ensure the correct userId is passed
-        message: isBot ? question : response,  // Send the question (if bot) or the response (if user)
-        is_bot: isBot,  // Whether the message is from the bot or user
+        user_id: userId,  
+        message: isBot ? question : response,  
+        is_bot: isBot,  
       };
 
-      // Send the POST request to the correct API endpoint
+      
       const res = await axios.post(API_URL, payload, {
         headers: {
-          'Content-Type': 'application/json', // Specify that you're sending JSON data
+          'Content-Type': 'application/json', 
         }
       });
 
@@ -98,7 +98,7 @@ const Chatbot = () => {
     }
   };
 
-  // Auto-scroll to latest message
+  
   useEffect(() => {
     if (chatAreaRef.current) {
       chatAreaRef.current.scrollTop = chatAreaRef.current.scrollHeight;
@@ -110,7 +110,7 @@ const Chatbot = () => {
       <h1>Chatbot</h1>
 
       <div className="chat-area" ref={chatAreaRef}>
-        {/* Display all messages */}
+        
         {messages.map((msg, index) => (
           <div key={index} className={`message ${msg.sender}`}>
             <span className="message-text">{msg.text}</span>
@@ -118,7 +118,7 @@ const Chatbot = () => {
         ))}
       </div>
 
-      {/* Display the current question and options for the user */}
+      
       {currentQuestionIndex < questions.length && (
         <div className="question-container">
           <div className="question-text">{questions[currentQuestionIndex].text}</div>
