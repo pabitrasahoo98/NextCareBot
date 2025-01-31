@@ -5,48 +5,69 @@ import "./Response.css";
 
 const Responses = () => {
   const { id } = useParams();  // Get the user ID from the URL params
-  const userName = localStorage.getItem('userName');  // Get the username from localStorage
+  const userName = localStorage.getItem('userName') || "Guest";  // Default to "Guest" if no userName found
   const navigate = useNavigate();  // Navigation hook
   const [responses, setResponses] = useState([]);  // State to store the responses
+  const [loading, setLoading] = useState(true);  // State to manage loading
 
   useEffect(() => {
     const fetchMessages = async () => {
       try {
-        // Use template literals to insert the user ID into the URL correctly
         const res = await axios.get(`http://127.0.0.1:8080/message/${id}`);
         if (res.status === 200) {
-          setResponses(res.data); // Set responses data from the API
+          setResponses(res.data); 
         } else {
           console.error("Failed to fetch responses");
         }
       } catch (error) {
         console.error("Error fetching responses:", error);
+      } finally {
+        setLoading(false);  
       }
     };
 
     if (id) {
-      fetchMessages(); // Fetch messages if the user ID is available
+      fetchMessages();  
     }
-  }, [id]);  // Re-run the effect if the ID changes
+  }, [id]); 
 
   const handleBackToHome = () => {
-    navigate('/'); // Navigate to the home page
+    navigate('/');  
+  };
+
+  const formatDate = (dateString) => {
+    const date = new Date(dateString);
+    
+    // Extract day, month, and year
+    const day = String(date.getDate()).padStart(2, '0');  // Adds leading zero if day < 10
+    const month = String(date.getMonth() + 1).padStart(2, '0');  // Months are zero-indexed
+    const year = date.getFullYear();
+
+    return `${day}/${month}/${year}`;  // Format as dd/mm/yyyy
   };
 
   return (
     <div className="responses-container">
       <h1>User Responses</h1>
-      <div className="responses-list">
-        {responses.length === 0 ? (
-          <p>No responses available yet.</p>  // Display a message if there are no responses
-        ) : (
-          responses.map((response, index) => (
-            <div key={index} className="response-item">
-              <strong>{response.is_bot ? "Bot" : userName}:</strong> {response.message}
-            </div>
-          ))
-        )}
-      </div>
+
+      {loading ? (
+        <p>Loading...</p>
+      ) : (
+        <div className="responses-list">
+          {responses.length === 0 ? (
+            <p>No responses available yet.</p> 
+          ) : (
+            responses.map((response) => (
+              <div key={response.id} className="response-item">
+                <strong>{response.is_bot ? "Bot" : userName}:</strong> {response.message}
+                <div className="response-date">
+                  <em>{formatDate(response.created_at)}</em>
+                </div>
+              </div>
+            ))
+          )}
+        </div>
+      )}
 
       <button onClick={handleBackToHome} className="back-to-chatbot-button">
         Back to Home
