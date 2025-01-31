@@ -17,7 +17,6 @@ const Login = () => {
       return;
     }
 
-    // Preparing the user data to send in the POST request
     const userData = {
       mobile: mobile,
       password: password,
@@ -28,8 +27,6 @@ const Login = () => {
       if (response.status === 200) {
         alert("Login successfull")
         const { user_id, user_name } = response.data; 
-
-          // Store id and name in localStorage
           localStorage.setItem('userId', user_id); 
           localStorage.setItem('userName', user_name); 
         setErrorMessage('');
@@ -59,7 +56,7 @@ const Login = () => {
         <div className="form-group">
           <label htmlFor="mobile">Mobile No:</label>
           <input
-            type="text"  // Use 'text' instead of 'number' to allow for 10-digit mobile input
+            type="text"  
             id="mob"
             value={mobile}
             onChange={(e) => setMobile(e.target.value)}

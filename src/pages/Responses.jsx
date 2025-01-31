@@ -4,11 +4,11 @@ import { useNavigate, useParams } from 'react-router-dom';
 import "./Response.css";
 
 const Responses = () => {
-  const { id } = useParams();  // Get the user ID from the URL params
-  const userName = localStorage.getItem('userName') || "Guest";  // Default to "Guest" if no userName found
-  const navigate = useNavigate();  // Navigation hook
-  const [responses, setResponses] = useState([]);  // State to store the responses
-  const [loading, setLoading] = useState(true);  // State to manage loading
+  const { id } = useParams();
+  const userName = localStorage.getItem('userName');
+  const navigate = useNavigate();  
+  const [responses, setResponses] = useState([]);  
+  const [loading, setLoading] = useState(true);  
 
   useEffect(() => {
     const fetchMessages = async () => {
@@ -35,6 +35,7 @@ const Responses = () => {
     navigate('/');  
   };
 
+  // Function to format the date into dd/mm/yyyy format
   const formatDate = (dateString) => {
     const date = new Date(dateString);
     

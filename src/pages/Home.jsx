@@ -27,10 +27,9 @@ const Home = () => {
   };
 
   const handleLogout = () => {
-    // Remove user data from localStorage and redirect to login or home page
     localStorage.removeItem('userId');
     localStorage.removeItem('userName');
-    window.location.reload(); // You can also use `navigate` if using React Router
+    window.location.reload(); 
   };
 
   const handleToggle = () => {

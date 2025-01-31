@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import './Signup.css';
-import axios from 'axios'; // Import axios
+import axios from 'axios'; 
 
 const Signup = () => {
   const navigate = useNavigate();
@@ -12,9 +12,9 @@ const Signup = () => {
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
   const [errorMessage, setErrorMessage] = useState('');
-  const [loading, setLoading] = useState(false); // Loading state to disable button
+  const [loading, setLoading] = useState(false); 
 
-  // Validation function
+  
   const validateForm = () => {
     if (name.trim().length < 3) {
       setErrorMessage('Name should be at least 3 characters long.');
@@ -45,7 +45,7 @@ const Signup = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     if (validateForm()) {
-      setLoading(true); // Set loading to true
+      setLoading(true); 
 
       const userData = {
         name,
@@ -63,7 +63,6 @@ const Signup = () => {
           setErrorMessage('');
           const { user_id, user_name } = response.data; 
 
-          // Store id and name in localStorage
           localStorage.setItem('userId', user_id); 
           localStorage.setItem('userName', user_name); 
           alert('Sign-up successful!');
@@ -77,15 +76,14 @@ const Signup = () => {
         }
        
       } catch (error) {
-        setLoading(false); // Set loading to false
+        setLoading(false); 
   
-        // Check if the error status is 400 (User already exists)
+      
         if (error.response && error.response.status === 400) {
           setErrorMessage('A user with this mobile number already exists.');
           alert('A user with this mobile number already exists.');
           navigate("/login")
         } else {
-          // Handle other errors (e.g., server issues)
           console.error('There was an error submitting the form:', error);
           setErrorMessage('An error occurred. Please try again later.');
         }
@@ -99,7 +97,7 @@ const Signup = () => {
 
   const handleMobileChange = (e) => {
     const formattedMobile = e.target.value.replace(/[^\d]/g, '');
-    setMobile(formattedMobile.slice(0, 10)); // Limit to 10 digits
+    setMobile(formattedMobile.slice(0, 10)); 
   };
 
   return (
