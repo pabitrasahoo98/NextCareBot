@@ -39,18 +39,24 @@ const Chatbot = () => {
   const handleSend = async () => {
     const botQuestion = questions[currentQuestionIndex].text;
     if (!userInput) return;
+
+    if (currentQuestionIndex === 0 && userInput === "No") {
+      // Optionally, you can clear the previous messages here or reset the state.
+      window.location.reload();  // Reload the page
+      return;  // Exit early to prevent the rest of the function from executing
+    }
      // Add the bot's question to the messages array
     const botMessage = { text: botQuestion, sender: "bot", is_bot: true };
     setMessages(prevMessages => [...prevMessages, botMessage]);
     // Add the bot's question first to the database
-    await postResponse(questions[currentQuestionIndex].text, "", true);  // Posting the bot's question (with is_bot: true)
+    await postResponse(questions[currentQuestionIndex].text, "", true);  
 
     // Add the user's response to the messages array
     const userMessage = { text: userInput, sender: "user", is_bot: false };
     setMessages(prevMessages => [...prevMessages, userMessage]);
 
     // Post the user's response to the API (after bot's question)
-    await postResponse(questions[currentQuestionIndex].text, userInput, false);  // Posting the user's answer (with is_bot: false)
+    await postResponse(questions[currentQuestionIndex].text, userInput, false);  
 
     // Move to the next question or finish
     if (currentQuestionIndex < questions.length - 1) {
