@@ -4,9 +4,10 @@ import { useNavigate, useParams } from 'react-router-dom';
 import "./Response.css";
 
 const Responses = () => {
-  const { id } = useParams(); // Get the user ID from the URL params
-  const navigate = useNavigate();
-  const [responses, setResponses] = useState([]);
+  const { id } = useParams();  // Get the user ID from the URL params
+  const userName = localStorage.getItem('userName');  // Get the username from localStorage
+  const navigate = useNavigate();  // Navigation hook
+  const [responses, setResponses] = useState([]);  // State to store the responses
 
   useEffect(() => {
     const fetchMessages = async () => {
@@ -26,7 +27,7 @@ const Responses = () => {
     if (id) {
       fetchMessages(); // Fetch messages if the user ID is available
     }
-  }, [id]); // Re-run the effect if the ID changes
+  }, [id]);  // Re-run the effect if the ID changes
 
   const handleBackToHome = () => {
     navigate('/'); // Navigate to the home page
@@ -34,14 +35,14 @@ const Responses = () => {
 
   return (
     <div className="responses-container">
-      <h1> User Responses</h1>
+      <h1>User Responses</h1>
       <div className="responses-list">
         {responses.length === 0 ? (
-          <p>No responses available yet.</p> // Display a message if there are no responses
+          <p>No responses available yet.</p>  // Display a message if there are no responses
         ) : (
           responses.map((response, index) => (
             <div key={index} className="response-item">
-              <strong>{response.is_bot ? "Bot" : "User"}:</strong> {response.message}
+              <strong>{response.is_bot ? "Bot" : userName}:</strong> {response.message}
             </div>
           ))
         )}

@@ -3,7 +3,7 @@
   background-color: #f9f9f9;
   border-radius: 10px;
   width: 100%;
-  max-width: 800px;  /* Increased max width for larger screens */
+  max-width: 800px;
   margin: 30px auto;
   padding: 30px;
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
@@ -11,8 +11,8 @@
   text-align: center;
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
-  height: 600px;  /* Increased overall height for more space */
+  justify-content: flex-start;
+  height: 600px;
   box-sizing: border-box;
 }
 
@@ -29,7 +29,7 @@ h1 {
   border: 1px solid #e1e1e1;
   border-radius: 10px;
   padding: 20px;
-  height: 75%;  /* Increased chat area height */
+  height: 70%;
   overflow-y: auto;
   background-color: #fff;
   box-shadow: inset 0px 2px 10px rgba(0, 0, 0, 0.1);
@@ -54,9 +54,9 @@ h1 {
 
 .message-text {
   display: inline-block;
-  padding: 15px 25px;  /* Larger padding for better readability */
+  padding: 15px 25px;
   border-radius: 15px;
-  max-width: 85%;  /* Allow for wider messages */
+  max-width: 85%;
   word-wrap: break-word;
 }
 
@@ -114,9 +114,8 @@ h1 {
   font-weight: bold;
   margin-bottom: 15px;
 }
-/* Chatbot.css */
 
-/* Style for radio options */
+/* Radio Button Styles */
 .options-container {
   margin: 10px 0;
 }
@@ -133,59 +132,18 @@ h1 {
   font-size: 16px;
 }
 
-
-/* Media Queries for Mobile Responsiveness */
-
-/* For small screens (mobile devices) */
-@media screen and (max-width: 600px) {
-  .chatbot-container {
-    padding: 15px;
-    margin: 10px;
-    max-width: 100%;  /* Full width on mobile */
-  }
-
-  .chat-area {
-    height: 50%;  /* Smaller chat area on mobile */
-    padding: 10px;
-  }
-
-  h1 {
-    font-size: 20px;  /* Slightly smaller title for mobile */
-  }
-
-  .message-text {
-    font-size: 14px;  /* Smaller font size for messages */
-    max-width: 90%;  /* Allow the message to take up more width */
-  }
-
-  .text-input, .send-button {
-    font-size: 14px;  /* Smaller font size for input and button */
-  }
-
-  .question-text {
-    font-size: 14px;  /* Smaller font size for question text */
-  }
-
-  .send-button {
-    font-size: 14px;  /* Smaller button font size */
-  }
-
-  /* Adjust margins and padding to fit mobile better */
-  .message-text {
-    padding: 10px;
-  }
-}
-
+/* 'View Responses' Button */
 .view-responses-button {
   margin-top: 20px;
   padding: 10px 20px;
-  background-color: #4CAF50; /* Green background */
+  background-color: #4CAF50;
   color: white;
   border: none;
   border-radius: 5px;
   font-size: 1em;
   cursor: pointer;
   transition: background-color 0.3s ease;
+  width: 100%; /* Full width for better visibility */
 }
 
 .view-responses-button:hover {
@@ -197,59 +155,37 @@ h1 {
   cursor: not-allowed;
 }
 
-
-/* For tablets and medium-sized screens */
-@media screen and (min-width: 601px) and (max-width: 1024px) {
+/* Media Queries for Mobile Responsiveness */
+@media screen and (max-width: 600px) {
   .chatbot-container {
-    max-width: 90%;  /* Allow for some margins on medium screens */
+    padding: 15px;
+    margin: 10px;
+    max-width: 100%;
   }
 
   .chat-area {
-    height: 65%;
+    height: 50%;
+    padding: 10px;
   }
 
   h1 {
-    font-size: 22px;
+    font-size: 20px;
   }
 
   .message-text {
+    font-size: 14px;
+    max-width: 90%;
+  }
+
+  .text-input, .send-button {
+    font-size: 14px;
+  }
+
+  .question-text {
+    font-size: 14px;
+  }
+
+  .view-responses-button {
     font-size: 16px;
-  }
-
-  .text-input, .send-button {
-    font-size: 15px;
-  }
-
-  .question-text {
-    font-size: 15px;
-  }
-}
-
-/* For larger screens (desktops) */
-@media screen and (min-width: 1025px) {
-  .chatbot-container {
-    max-width: 800px;  /* Increased max width for large screens */
-    padding: 40px;  /* More padding for better spacing */
-    margin: 30px auto;
-  }
-
-  .chat-area {
-    height: 75%;  /* Larger chat area on larger screens */
-  }
-
-  h1 {
-    font-size: 32px;  /* Larger title for bigger screens */
-  }
-
-  .message-text {
-    font-size: 20px;  /* Larger message text */
-  }
-
-  .text-input, .send-button {
-    font-size: 18px;  /* Larger input and button font sizes */
-  }
-
-  .question-text {
-    font-size: 18px;  /* Larger question text */
   }
 }

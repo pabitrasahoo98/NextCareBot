@@ -1,13 +1,12 @@
 import React, { useState, useEffect, useRef } from "react";
 import axios from "axios";  
-import "./Chatbot.css";
 import { useNavigate } from "react-router-dom";
-
+import "./Chatbot.css";
 
 const API_URL = "http://127.0.0.1:8080/MessageCreate";
 
 const Chatbot = () => {
-  const navigate=useNavigate();
+  const navigate = useNavigate();
   const userId = localStorage.getItem('userId');
   const [messages, setMessages] = useState([
     { text: "Hi! I am NextCare Bot. By answering a few questions, I can assist you regarding your health condition.", sender: "bot", is_bot: true }
@@ -30,16 +29,19 @@ const Chatbot = () => {
   ];
 
   const handleRadioChange = (event) => {
-    setUserInput(event.target.value); // Set selected radio button value as user input
+    setUserInput(event.target.value);
   };
 
   const handleViewResponses = () => {
-    navigate(`/responses/${userId}`);
+    navigate(`/response/${userId}`);
   };
 
   const handleSend = async () => {
+    const botQuestion = questions[currentQuestionIndex].text;
     if (!userInput) return;
-
+     // Add the bot's question to the messages array
+    const botMessage = { text: botQuestion, sender: "bot", is_bot: true };
+    setMessages(prevMessages => [...prevMessages, botMessage]);
     // Add the bot's question first to the database
     await postResponse(questions[currentQuestionIndex].text, "", true);  // Posting the bot's question (with is_bot: true)
 
@@ -139,11 +141,11 @@ const Chatbot = () => {
             Send
           </button>
         </div>
-        
       )}
-      {currentQuestionIndex >= questions.length && (
+
+      {currentQuestionIndex >= 5 && (
         <button onClick={handleViewResponses} className="view-responses-button">
-          View All Responses
+          View Your Responses
         </button>
       )}
     </div>
