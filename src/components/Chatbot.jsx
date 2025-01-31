@@ -17,15 +17,34 @@ const Chatbot = () => {
   const chatAreaRef = useRef(null);
 
   const questions = [
-    { text: "Are you experiencing a headache right now or recently?", options: ["Yes", "No"] },
-    { text: "How long has your headache lasted?", options: ["Less than 1 hour", "1-3 hours", "More than 3 hours"] },
-    { text: "When did your headache start?", options: ["Today", "Yesterday", "Earlier this week"] },
-    { text: "Where is the pain located?", options: ["Front of the head", "Side of the head", "Back of the head", "Whole head"] },
-    { text: "What does your headache feel like?", options: ["Sharp", "Dull", "Throbbing", "Pressure"] },
-    { text: "Do you have any of these symptoms with your headache?", options: ["Nausea", "Dizziness", "Vision changes", "None of the above"] },
-    { text: "Do you have any of these conditions or recent events?", options: ["High blood pressure", "Stress", "Cold/Flu", "None of the above"] },
-    { text: "Are you able to check your temperature and blood pressure?", options: ["Yes", "No"] },
-    { text: "Headache Frequency and Chronicity", options: ["Occasional", "Frequent", "Chronic"] }
+    { text: "Hello! I’m your health assistant. could we begin?", options: ["Yes", "No"] },
+    { text:"could you tell me your age?",options:["10-20","21-40","41-60"]},
+    { text: "Thank you! Could you please tell me your gender? ", options: ["male", "female","other","prefer not to say"] },
+    { text:"Do you have any known allergies or sensitivities?" , options: ["Yes", "No"] },
+    { text:"Please give  the name of  allergy you have" , options: ["Chemical allergy", "Penicillin allergy","Pollen allergy","Other"] },
+    { text:"Do you have any pre-existing medical conditions or are you currently taking any medications? " , options: ["yes", "No"] },
+    { text:"What is your primary concern today or what symptoms have you been experiencing?" , options: ["Allergic reactions", "Respiratory symptoms","Digestive issues","Other concerns"] },
+    { text:"Have you experienced any recent weight changes, such as unexplained weight loss or gain? " , options: ["yes", "No"] },
+    { text:"Have you been feeling more tired than usual lately? " , options: ["yes", "No"] },
+    { text:"Have you noticed any changes in your appetite or eating habits? " , options: ["yes", "No"] },
+    { text:"Do you regularly engage in any physical activity or exercise?" , options: ["yes", "No"] },
+    { text:"How often do you exercise, and what type of activity do you do?" , options: ["Daily exercise", "Several times a week","Occasionally","Rarely or never"] },
+    { text:"Do you smoke or use any tobacco products? " , options: ["yes", "No"] },
+    { text: "Do you consume alcohol or any other substances?", options: ["Yes", "No"] },
+    { text: "How would you rate your overall stress levels?", options: ["Low (1-3)", "Moderate (4-6)", "High (7-8)", "Very high (9-10)"] },
+    { text: "How many hours of sleep do you get on average per night?", options: ["Less than 4", "4-6", "7-8", "More than 8"] },
+    { text: "Have you experienced any pain or discomfort in your chest or shortness of breath?", options: ["Yes", "No"] },
+    { text: "Do you have a family history of any chronic diseases?", options: ["Diabetes", "Heart Disease", "Cancer", "Other"] },
+    { text: "Do you have any upcoming doctor visits, lab tests, or procedures?", options: ["Yes", "No"] },
+    { text: "Are you experiencing any feelings of anxiety, depression, or stress?", options: ["Yes", "No"] },
+    { text: "Would you like to receive regular health tips and updates?", options: ["Yes", "No"] },
+
+    { text: "Would you like to set up a follow-up reminder for these symptoms?", options: ["Yes", "No"] },
+    { text: "Would you like to send your health data and symptom summary to your doctor or healthcare provider?", options: ["Yes", "No"] },
+    { text: "Would you like to track your symptoms and health progress over time?", options: ["Yes", "No"] },
+    { text: "How would you rate this chatbot's assistance today?", options: ["Very helpful", "Somewhat helpful", "Neutral", "Not helpful"] }
+
+ 
   ];
 
   const handleRadioChange = (event) => {
